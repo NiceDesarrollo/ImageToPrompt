@@ -40,7 +40,7 @@ export async function POST(request: Request) {
     // For text-and-image input (multimodal), use the gemini-pro-vision model
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
   
-    const prompt = "Could you provide me with the correct prompt to generate this  image?, please be carefull whith the colors, the background, the perspective, the style, and the quality";
+    const prompt = "Could you provide me with the correct prompt to generate this  image?, please be carefull whith the colors, the background, the perspective, the style, the quality, and be the more descriptive you can";
   
     const imageParts = [
       fileToGenerativePart(imagePath, imageType),
