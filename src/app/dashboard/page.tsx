@@ -1,8 +1,20 @@
-import { getServerSession } from "next-auth";
+'use client'
+import { ChangeEvent, useState } from "react";
 import NavBar from "../ui/NavBar/NavBar";
 
-async function DashboardPage() {
+function DashboardPage() {
+  const [image, setImage] = useState<string | ArrayBuffer | null>(null);
 
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <>
@@ -51,21 +63,24 @@ async function DashboardPage() {
               >
                 <div className="text-center">
                   <h2 className="mt-5 text-3xl font-bold text-gray-900">
-                    Upload your video!
+                    Upload your image!
                   </h2>
+                  <h3 className="mt-5 text-2xl font-bold text-gray-500">
+                    To get the prompt
+                  </h3>
                 </div>
                 <form className="mt-8 space-y-3" action="#" method="POST">
                   <div className="grid grid-cols-1 space-y-2">
                     <label className="text-sm font-bold text-gray-500 tracking-wide">
-                      Video here
+                      Image here
                     </label>
                     <div className="flex items-center justify-center w-full ">
                       <label className="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center cursor-pointer">
                         <div className="h-full w-full text-center flex flex-col items-center justify-center  ">
                           <div className="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10">
                             <img
-                              className="has-mask h-36 object-center"
-                              src="./uploadVideo.svg"
+                              className="has-mask h-36 object-center my-10"
+                              src={image ? image as string: "./image.svg"}
                               alt="freepik image"
                             />
                           </div>
@@ -82,12 +97,17 @@ async function DashboardPage() {
                             from your computer
                           </p>
                         </div>
-                        <input type="file" className="hidden" />
+
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageChange}
+                        />
                       </label>
                     </div>
                   </div>
                   <p className="text-sm text-gray-300">
-                    <span>File type: .wave</span>
+                    <span>File type: .JPEG .PNG </span>
                   </p>
                   <div>
                     <div className="mt-20 flex items-center justify-center gap-x-6">
