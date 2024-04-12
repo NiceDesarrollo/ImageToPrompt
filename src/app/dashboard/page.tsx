@@ -1,5 +1,5 @@
 'use client'
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import NavBar from "../ui/NavBar/NavBar";
 
 function DashboardPage() {
@@ -13,6 +13,25 @@ function DashboardPage() {
         setImage(reader.result);
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    const response = await fetch("http://localhost:3000/api/auth/SignUp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ image }),
+    });
+
+    if (response?.ok) {
+      console.log('response?.ok');
+    } else {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to submit the data.");
     }
   };
 
@@ -69,7 +88,7 @@ function DashboardPage() {
                     To get the prompt
                   </h3>
                 </div>
-                <form className="mt-8 space-y-3" action="#" method="POST">
+                <form onSubmit={handleSubmit} className="mt-8 space-y-3" action="#">
                   <div className="grid grid-cols-1 space-y-2">
                     <label className="text-sm font-bold text-gray-500 tracking-wide">
                       Image here
