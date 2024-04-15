@@ -12,7 +12,7 @@ export async function POST(request) {
   const ImageRequestFile = data.get("image");
 
   // Define the path where the image will be stored
-  const imagePath = `public/${ImageRequestFile.name}`;
+  const imagePath = `${ImageRequestFile.name}`;
 
   // Usa pipeline para manejar backpressure y errores
   try {
