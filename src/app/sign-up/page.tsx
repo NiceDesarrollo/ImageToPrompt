@@ -12,7 +12,7 @@ function Page() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:3000/api/auth/SignUp", {
+    const response = await fetch("https://image-to-prompt-orcin.vercel.app/api/auth/SignUp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
