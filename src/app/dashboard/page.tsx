@@ -51,7 +51,7 @@ function DashboardPage() {
       setTextResponse(message);
       console.log("Message response:", message);
     } else {
-      console.log("!response?.ok");
+      console.log(response);
     }
   };
 
