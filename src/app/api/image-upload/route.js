@@ -11,20 +11,14 @@ export async function POST(request) {
 
   const ImageRequestFile = data.get("image");
 
-  // Define the path where the image will be stored
-  const imagePath = `${ImageRequestFile.name}`;
+  // // Define the path where the image will be stored
+  // const imagePath = `./public/${ImageRequestFile.name}`;
 
-  // Usa pipeline para manejar backpressure y errores
-  try {
-    await promisify(pipeline)(
-      ImageRequestFile.stream(),
-      fs.createWriteStream(imagePath)
-    );
-  } catch (error) {
-    console.error("Error:", error);
-    // Devuelve el error como una respuesta del servidor
-    return NextResponse.json({ message: error.message }, { status: 500 });
-  }
+  // // Use pipeline to handle backpressure and errors
+  // await promisify(pipeline)(
+  //   ImageRequestFile.stream(),
+  //   fs.createWriteStream(imagePath)
+  // );
 
   // Access your API key as an environment variable (see "Set up your API key" above)
   const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI);
@@ -51,13 +45,13 @@ export async function POST(request) {
   const text = response.text();
 
   // Delete the image
-  fs.unlink(imagePath, (err) => {
-    if (err) {
-      console.error("Error deleting the image:", err);
-    } else {
-      console.log("Image deleted successfully");
-    }
-  });
+  // fs.unlink(imagePath, (err) => {
+  //   if (err) {
+  //     console.error("Error deleting the image:", err);
+  //   } else {
+  //     console.log("Image deleted successfully");
+  //   }
+  // });
 
   return NextResponse.json({ message: text }, { status: 200 });
 }
