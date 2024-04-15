@@ -7,7 +7,6 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export async function POST(request) {
   const data = await request.formData();
-  return NextResponse.json({ message: 'hello' }, { status: 200 });
 
   const imageType = data.get("image").type || "";
 
@@ -21,6 +20,8 @@ export async function POST(request) {
     ImageRequestFile.stream(),
     fs.createWriteStream(imagePath)
   );
+
+  return NextResponse.json({ message: 'hello' }, { status: 200 });
 
   // Access your API key as an environment variable (see "Set up your API key" above)
   const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI);
