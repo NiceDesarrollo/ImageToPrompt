@@ -36,7 +36,7 @@ export async function POST(request) {
   const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
   const prompt =
-    "Could you provide me with the correct prompt to generate this  image?, please be carefull whith the colors, the background, the perspective, the style, the quality, and be the more descriptive you can";
+    "Could you provide me prompt to generate this image?, give me a full description of colors, background, perspective, style (if it's realist or not)";
 
   const imageParts = [fileToGenerativePart(imagePath, imageType)];
 
@@ -52,6 +52,6 @@ export async function POST(request) {
       console.log("Image deleted successfully");
     }
   });
-  
+
   return NextResponse.json({ message: text }, { status: 200 });
 }

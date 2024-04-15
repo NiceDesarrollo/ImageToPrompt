@@ -48,12 +48,8 @@ function DashboardPage() {
       const data = await response.json();
       const message = data.message as string;
 
-      const promptText = "prompt: ";
-      const splitMessage = message.split(promptText);
-      const textResponse = splitMessage[1];
-
-      setTextResponse(textResponse);
-      console.log("Message response:", textResponse);
+      setTextResponse(message);
+      console.log("Message response:", message);
     } else {
       console.log("!response?.ok");
     }
