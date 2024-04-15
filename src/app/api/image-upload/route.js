@@ -14,11 +14,17 @@ export async function POST(request) {
   // Define the path where the image will be stored
   const imagePath = `public/${ImageRequestFile.name}`;
 
-  // Use pipeline to handle backpressure and errors
-  await promisify(pipeline)(
-    ImageRequestFile.stream(),
-    fs.createWriteStream(imagePath)
-  );
+  // Usa pipeline para manejar backpressure y errores
+  try {
+    await promisify(pipeline)(
+      ImageRequestFile.stream(),
+      fs.createWriteStream(imagePath)
+    );
+  } catch (error) {
+    console.error("Error:", error);
+    // Devuelve el error como una respuesta del servidor
+    return NextResponse.json({ message: error.message }, { status: 500 });
+  }
 
   // Access your API key as an environment variable (see "Set up your API key" above)
   const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI);
