@@ -7,6 +7,8 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export async function POST(request) {
   const data = await request.formData();
+  return NextResponse.json({ message: data }, { status: 200 });
+
   const imageType = data.get("image").type || "";
 
   const ImageRequestFile = data.get("image");
@@ -53,5 +55,4 @@ export async function POST(request) {
     }
   });
 
-  return NextResponse.json({ message: text }, { status: 200 });
 }
