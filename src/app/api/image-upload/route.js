@@ -15,13 +15,15 @@ export async function POST(request) {
   // Define the path where the image will be stored
   const imagePath = `./public/${ImageRequestFile.name}`;
 
+  return NextResponse.json({ message: 'hello' }, { status: 200 });
+
+
   // Use pipeline to handle backpressure and errors
   await promisify(pipeline)(
     ImageRequestFile.stream(),
     fs.createWriteStream(imagePath)
   );
 
-  return NextResponse.json({ message: 'hello' }, { status: 200 });
 
   // Access your API key as an environment variable (see "Set up your API key" above)
   const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI);
