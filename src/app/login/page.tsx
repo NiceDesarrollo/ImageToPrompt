@@ -2,24 +2,24 @@
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, SetStateAction, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import NavBar from "../ui/NavBar/NavBar";
 
-function page() {
+function Page() {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showsucces, setShowsuccess] = useState(false);
   const [error, setError] = useState("");
 
-  const signUpSuccessParam = searchParams.get("signUp");
-  useEffect(() => {
-    if (signUpSuccessParam === "true") {
-      setShowsuccess(true);
-    }
-  }, [signUpSuccessParam]);
+  // const signUpSuccessParam = searchParams.get("signUp");
+  // useEffect(() => {
+  //   if (signUpSuccessParam === "true") {
+  //     setShowsuccess(true);
+  //   }
+  // }, [signUpSuccessParam]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -210,7 +210,7 @@ function page() {
                     </div>
 
                     <div>
-                      <p>Don't have an account?</p>
+                      <p>Don&apos;t have an account?</p>
                       <Link className="text-sky-400" href={"sign-up"}>
                         Create one
                       </Link>
@@ -259,4 +259,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

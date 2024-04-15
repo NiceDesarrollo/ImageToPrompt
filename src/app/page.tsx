@@ -47,8 +47,7 @@ async function HomePage() {
         <div className="relative z-20 mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Transform Your <span className="text-blue-500">Videos</span> into{" "}
-              <span className="text-blue-500">Text</span> Summaries
+              Get the prompt of <span className="text-blue-500">Images</span>
             </h1>
             <div className="mt-20 flex items-center justify-center gap-x-6">
               <Link

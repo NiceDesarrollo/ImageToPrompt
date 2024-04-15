@@ -7,13 +7,13 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 
 
-export async function POST(request: Request) {
+export async function POST(request) {
   
   const data = await request.formData();
   const imageType = data.get("image").type || '';
 
 
-  const ImageRequestFile = data.get("image") as File;
+  const ImageRequestFile = data.get("image");
 
   // Define the path where the image will be stored
   const imagePath = `./public/${ImageRequestFile.name}`;
@@ -25,9 +25,9 @@ export async function POST(request: Request) {
   );
 
     // Access your API key as an environment variable (see "Set up your API key" above)
-    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI!);
+    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI);
 
-    function fileToGenerativePart(path:any, mimeType:string) {
+    function fileToGenerativePart(path, mimeType) {
       return {
         inlineData: {
           data: Buffer.from(fs.readFileSync(path)).toString("base64"),

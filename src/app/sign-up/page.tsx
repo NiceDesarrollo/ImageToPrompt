@@ -1,10 +1,9 @@
 "use client";
-import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
-function page() {
+function Page() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -160,4 +159,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

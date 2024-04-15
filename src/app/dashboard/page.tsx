@@ -1,13 +1,20 @@
-'use client'
+"use client";
 import { ChangeEvent, FormEvent, useState } from "react";
 import NavBar from "../ui/NavBar/NavBar";
+import Image from "next/image";
 
 function DashboardPage() {
+  const [imageForm, setImageForm] = useState<File | null | Blob>(null);
   const [image, setImage] = useState<string | ArrayBuffer | null>(null);
+  const [textResponse, setTextResponse] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+
     if (file) {
+      //Imge to send to the server as a file
+      setImageForm(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setImage(reader.result);
@@ -19,19 +26,36 @@ function DashboardPage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const response = await fetch("http://localhost:3000/api/auth/SignUp", {
+    setLoading(true);
+
+    // Create a new FormData instance
+    const formData = new FormData();
+
+    // Append the image file to the form data
+    if (imageForm) {
+      formData.append("image", imageForm);
+    }
+
+    // Fetch request
+    const response = await fetch("http://localhost:3000/api/image-upload", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ image }),
+      body: formData, // send formData instead of JSON
     });
 
+    setLoading(false);
+
     if (response?.ok) {
-      console.log('response?.ok');
+      const data = await response.json();
+      const message = data.message as string;
+
+      const promptText = "prompt: ";
+      const splitMessage = message.split(promptText);
+      const textResponse = splitMessage[1];
+
+      setTextResponse(textResponse);
+      console.log("Message response:", textResponse);
     } else {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to submit the data.");
+      console.log("!response?.ok");
     }
   };
 
@@ -88,7 +112,11 @@ function DashboardPage() {
                     To get the prompt
                   </h3>
                 </div>
-                <form onSubmit={handleSubmit} className="mt-8 space-y-3" action="#">
+                <form
+                  onSubmit={handleSubmit}
+                  className="mt-8 space-y-3"
+                  action="#"
+                >
                   <div className="grid grid-cols-1 space-y-2">
                     <label className="text-sm font-bold text-gray-500 tracking-wide">
                       Image here
@@ -97,40 +125,55 @@ function DashboardPage() {
                       <label className="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center cursor-pointer">
                         <div className="h-full w-full text-center flex flex-col items-center justify-center  ">
                           <div className="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10">
-                            <img
+                            <Image
                               className="has-mask h-36 object-center my-10"
-                              src={image ? image as string: "./image.svg"}
+                              src={image ? (image as string) : "./image.svg"}
                               alt="freepik image"
+                              height={300}  
+                              width={300}
                             />
                           </div>
-                          <p className="pointer-none text-gray-500 ">
-                            <span className="text-sm">Drag and drop</span> files
-                            here <br /> or{" "}
-                            <a
-                              href=""
-                              id=""
-                              className="text-blue-600 hover:underline"
-                            >
-                              select a file
-                            </a>{" "}
-                            from your computer
-                          </p>
+                          {!image && (
+                            <p className="pointer-none text-gray-500">
+                              <span className="text-sm">Drag and drop</span>{" "}
+                              files here <br /> or{" "}
+                              <span className="text-blue-600 hover:underline">
+                                select a file
+                              </span>{" "}
+                              from your computer
+                            </p>
+                          )}
                         </div>
 
                         <input
                           type="file"
                           accept="image/*"
                           onChange={handleImageChange}
+                          name="imageForm"
                         />
                       </label>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-300">
-                    <span>File type: .JPEG .PNG </span>
-                  </p>
+                  <div>
+                    {loading ? (
+                      <div>Loading...</div> // This is your loading indicator
+                    ) : (
+                      textResponse && (
+                        <>
+                          <h2 className="mt-5 text-3xl font-bold text-gray-900">
+                            Description
+                          </h2>
+                          <p>{textResponse}</p>
+                        </>
+                      )
+                    )}
+                  </div>
                   <div>
                     <div className="mt-20 flex items-center justify-center gap-x-6">
-                      <div className="isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-lg font-semibold text-white shadow-sm transition-all duration-150 hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+                      <button
+                        type="submit"
+                        className="isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-lg font-semibold text-white shadow-sm transition-all duration-150 hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                      >
                         Upload
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +187,7 @@ function DashboardPage() {
                             clipRule="evenodd"
                           ></path>
                         </svg>
-                      </div>
+                      </button>
                     </div>
                   </div>
                 </form>
