@@ -37,10 +37,10 @@ function DashboardPage() {
     }
 
     // Fetch request
-    const response = await fetch("https://image-to-prompt-orcin.vercel.app/api/image-upload/", {
+    const response = await fetch("/api/image-upload/", {
       method: "POST",
       body: formData, // send formData instead of JSON
-      
+
     });
 
     setLoading(false);
