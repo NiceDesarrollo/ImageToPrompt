@@ -2,12 +2,17 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import NavBar from "../ui/NavBar/NavBar";
 import Image from "next/image";
+import {
+  CheckIcon,
+  ClipboardDocumentListIcon,
+} from "@heroicons/react/24/outline";
 
 function DashboardPage() {
   const [imageForm, setImageForm] = useState<File | null | Blob>(null);
   const [image, setImage] = useState<string | ArrayBuffer | null>(null);
   const [textResponse, setTextResponse] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [isCopyText, setIsCopyText] = useState<boolean>(false);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -40,7 +45,6 @@ function DashboardPage() {
     const response = await fetch("/api/image-upload", {
       method: "POST",
       body: formData, // send formData instead of JSON
-
     });
 
     setLoading(false);
@@ -52,7 +56,20 @@ function DashboardPage() {
       setTextResponse(message);
       console.log("Message response:", message);
     } else {
-      console.log('error', response);
+      console.log("error", response);
+    }
+  };
+
+  const handleCopy = async () => {
+    try {
+      if (textResponse) {
+        await navigator.clipboard.writeText(textResponse);
+        setIsCopyText(true);
+        console.log("Text copied to clipboard");
+        setTimeout(() => setIsCopyText(false), 2000);
+      }
+    } catch (err) {
+      console.error("Failed to copy text: ", err);
     }
   };
 
@@ -126,7 +143,7 @@ function DashboardPage() {
                               className="has-mask h-36 object-center my-10"
                               src={image ? (image as string) : "./image.svg"}
                               alt="freepik image"
-                              height={300}  
+                              height={300}
                               width={300}
                             />
                           </div>
@@ -156,12 +173,42 @@ function DashboardPage() {
                       <div>Loading...</div> // This is your loading indicator
                     ) : (
                       textResponse && (
-                        <>
-                          <h2 className="mt-5 text-3xl font-bold text-gray-900">
-                            Description
-                          </h2>
-                          <p>{textResponse}</p>
-                        </>
+                        <div className="border rounded shadow p-5 flex justify-between">
+                          <div>
+                            <h2 className="mt-5 text-3xl font-bold text-gray-900">
+                              Description:
+                            </h2>
+                            <p>{textResponse}</p>
+                          </div>
+
+                          <button
+                            type="button"
+                            className="-m-2.5 inline-flex justify-end rounded-md p-2.5 text-gray-700 border h-12"
+                            onClick={handleCopy}
+                          >
+                            <span className="sr-only">Copy to clipboard</span>
+                            {isCopyText ? (
+                              <>
+                                {" "}
+                                <CheckIcon
+                                  className="h-6 w-6"
+                                  aria-hidden="true"
+                                />
+                                <div className="absolute bg-white border p-2 mt-10 rounded shadow-lg">
+                                  Copied to clipboard!
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                {" "}
+                                <ClipboardDocumentListIcon
+                                  className="h-6 w-6"
+                                  aria-hidden="true"
+                                />
+                              </>
+                            )}
+                          </button>
+                        </div>
                       )
                     )}
                   </div>

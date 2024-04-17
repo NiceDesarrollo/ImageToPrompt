@@ -91,6 +91,8 @@ function Page() {
                 </div>
               )}
 
+              <h1 className="my-10 text-3xl font-bold text-gray-700">Upload your image! To get the prompt</h1>
+
               <h1 className="font-bold">Login with Github</h1>
               <button
                 className="isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl  px-4 py-3 text-sm font-semiboldshadow-sm transition-all duration-150 hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
