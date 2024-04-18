@@ -13,6 +13,7 @@ function DashboardPage() {
   const [textResponse, setTextResponse] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [isCopyText, setIsCopyText] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -31,6 +32,8 @@ function DashboardPage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
+    setTextResponse(null);
+    setError(null);
     setLoading(true);
 
     // Create a new FormData instance
@@ -56,6 +59,9 @@ function DashboardPage() {
       setTextResponse(message);
       console.log("Message response:", message);
     } else {
+      const data = await response.json();
+      const message = data.message as string;
+      setError(message);
       console.log("error", response);
     }
   };
@@ -126,6 +132,19 @@ function DashboardPage() {
                     To get the prompt
                   </h3>
                 </div>
+                {error && (
+                  <div
+                    className="bg-red-100 border-t-4 border-red-500 rounded-b text-red-900 px-4 py-3 shadow-md my-4"
+                    role="alert"
+                  >
+                    <div className="text-center">
+                      <div>
+                        <p className="font-bold">Error: </p>
+                        <p className="text-sm">{error}</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 <form
                   onSubmit={handleSubmit}
                   className="mt-8 space-y-3"
@@ -148,14 +167,19 @@ function DashboardPage() {
                             />
                           </div>
                           {!image && (
-                            <p className="pointer-none text-gray-500">
-                              <span className="text-sm">Drag and drop</span>{" "}
-                              files here <br /> or{" "}
-                              <span className="text-blue-600 hover:underline">
-                                select a file
-                              </span>{" "}
-                              from your computer
-                            </p>
+                            <>
+                              <p className="pointer-none text-gray-500">
+                                <span className="text-sm">Drag and drop</span>{" "}
+                                files here <br /> or{" "}
+                                <span className="text-blue-600 hover:underline">
+                                  select a file
+                                </span>{" "}
+                                from your computer
+                              </p>
+                              <p className="text-gray-300 text-sm">
+                                .webp .jpeg .png .jpg
+                              </p>
+                            </>
                           )}
                         </div>
 
@@ -215,6 +239,7 @@ function DashboardPage() {
                   <div>
                     <div className="mt-20 flex items-center justify-center gap-x-6">
                       <button
+                        disabled={!image}
                         type="submit"
                         className="isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-lg font-semibold text-white shadow-sm transition-all duration-150 hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                       >

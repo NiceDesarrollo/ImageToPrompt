@@ -6,6 +6,26 @@ export async function POST(request) {
   const imageType = data.get("image").type || "";
   const ImageRequestFile = data.get("image");
 
+  let imageExtension = imageType.split("/");
+  imageExtension = imageExtension[1];
+
+  console.log(imageExtension);
+
+  if (
+    imageExtension != "webp" &&
+    imageExtension != "jpeg" &&
+    imageExtension != "png" &&
+    imageExtension != "jpg"
+  ) {
+    return NextResponse.json(
+      {
+        message:
+          "Invalid image extension. Please upload an image with .webp, .jpeg, .png, or .jpg extension.",
+      },
+      { status: 500 }
+    );
+  }
+
   // Access your API key as an environment variable (see "Set up your API key" above)
   const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI);
 
