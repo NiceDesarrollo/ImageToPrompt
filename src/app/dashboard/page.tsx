@@ -159,7 +159,7 @@ function DashboardPage() {
                         <div className="h-full w-full text-center flex flex-col items-center justify-center  ">
                           <div className="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10">
                             <Image
-                              className="has-mask h-36 object-center my-10"
+                              className="has-mask h-36 object-center my-5"
                               src={image ? (image as string) : "./image.svg"}
                               alt="freepik image"
                               height={300}
