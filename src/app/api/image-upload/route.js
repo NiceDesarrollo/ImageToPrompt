@@ -1,15 +1,21 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server"; 
 
 export async function POST(request) {
+
+  const session = await getServerSession(request)
+
+  if (!session) {
+    return NextResponse.json({ message: 'Please log in' }, { status: 401 });
+  }
+
   const data = await request.formData();
   const imageType = data.get("image").type || "";
   const ImageRequestFile = data.get("image");
 
   let imageExtension = imageType.split("/");
   imageExtension = imageExtension[1];
-
-  console.log(imageExtension);
 
   if (
     imageExtension != "webp" &&
