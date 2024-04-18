@@ -174,7 +174,6 @@ function DashboardPage() {
                                 <span className="text-blue-600 hover:underline">
                                   select a file
                                 </span>{" "}
-                                from your computer
                               </p>
                               <p className="text-gray-300 text-sm">
                                 .webp .jpeg .png .jpg
@@ -183,7 +182,7 @@ function DashboardPage() {
                           )}
                         </div>
 
-                        <input
+                        <input className="pt-10"
                           type="file"
                           accept="image/*"
                           onChange={handleImageChange}
