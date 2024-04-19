@@ -8,7 +8,6 @@ import {
 } from "@heroicons/react/24/outline";
 
 function DashboardPage() {
-  
   const [imageForm, setImageForm] = useState<File | null | Blob>(null);
   const [image, setImage] = useState<string | ArrayBuffer | null>(null);
   const [textResponse, setTextResponse] = useState<string | null>(null);
@@ -126,7 +125,7 @@ function DashboardPage() {
                 className="sm:max-w-lg w-full p-10 bg-white rounded-xl z-10 margin-responsive"
               >
                 <div className="text-center">
-                <h2 className="mt-5 text-3xl font-bold text-gray-900">
+                  <h2 className="mt-5 text-3xl font-bold text-gray-900">
                     Free version
                   </h2>
                   <h2 className="mt-5 text-3xl font-bold text-gray-900">
@@ -186,7 +185,8 @@ function DashboardPage() {
                           )}
                         </div>
 
-                        <input className="pt-10"
+                        <input
+                          className="pt-10"
                           type="file"
                           accept="image/*"
                           onChange={handleImageChange}
