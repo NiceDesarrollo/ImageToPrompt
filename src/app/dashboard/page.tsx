@@ -126,6 +126,9 @@ function DashboardPage() {
                 className="sm:max-w-lg w-full p-10 bg-white rounded-xl z-10 margin-responsive"
               >
                 <div className="text-center">
+                <h2 className="mt-5 text-3xl font-bold text-gray-900">
+                    Free version
+                  </h2>
                   <h2 className="mt-5 text-3xl font-bold text-gray-900">
                     Upload your image!
                   </h2>
