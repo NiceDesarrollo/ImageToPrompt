@@ -4,22 +4,16 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import NavBar from "../ui/NavBar/NavBar";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 
 function Page() {
   const router = useRouter();
-  // const searchParams = useSearchParams();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showsucces, setShowsuccess] = useState(false);
   const [error, setError] = useState("");
-
-  // const signUpSuccessParam = searchParams.get("signUp");
-  // useEffect(() => {
-  //   if (signUpSuccessParam === "true") {
-  //     setShowsuccess(true);
-  //   }
-  // }, [signUpSuccessParam]);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showsucces, setShowsucces] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -34,6 +28,23 @@ function Page() {
       setError(result?.error || "Error on login form");
     }
   };
+
+  useEffect(() => {
+    let params;
+    let signUpUrlParameter;
+
+    if (typeof window !== "undefined") {
+      params = new URLSearchParams(window.location.search);
+    }
+
+    if (params) {
+      signUpUrlParameter = params.get("signUp"); // is the string "1234"
+    }
+
+    if (signUpUrlParameter) {
+      setShowsucces(true);
+    }
+  }, []);
 
   return (
     <>
@@ -91,7 +102,9 @@ function Page() {
                 </div>
               )}
 
-              <h1 className="my-10 text-3xl font-bold text-gray-700">Upload your image! To get the prompt</h1>
+              <h1 className="my-10 text-3xl font-bold text-gray-700">
+                Upload your image! To get the prompt
+              </h1>
 
               <h1 className="font-bold">Login with Github</h1>
               <button
@@ -185,7 +198,7 @@ function Page() {
                           name="email"
                           type="email"
                           required
-                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                       </div>
                     </div>
@@ -199,15 +212,22 @@ function Page() {
                           Password
                         </label>
                       </div>
-                      <div className="mt-2">
+                      <div className="flex items-center justify-between">
                         <input
                           onChange={(e) => setPassword(e.target.value)}
                           id="password"
                           name="password"
-                          type="password"
+                          type={showPassword ? "text" : "password"}
                           required
-                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                          className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="ml-5 w-10 h-10 p-2"
+                        >
+                          {showPassword ? <EyeIcon /> : <EyeSlashIcon />}
+                        </button>
                       </div>
                     </div>
 
