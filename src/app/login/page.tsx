@@ -1,5 +1,5 @@
 "use client";
-import { signIn } from "next-auth/react";
+import { getSession, signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
@@ -132,11 +132,10 @@ function Page() {
               <button
                 className="isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl  px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
                 onClick={async () => {
-                  const result = await signIn("google", {
+                  await signIn("google", {
                     callbackUrl: "/dashboard",
                     redirect: false,
                   });
-                  console.log(result);
                 }}
               >
                 <svg

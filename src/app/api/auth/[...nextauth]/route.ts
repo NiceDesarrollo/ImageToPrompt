@@ -72,6 +72,13 @@ const handler = NextAuth({
   pages: {
     signIn: "/login",
   },
+  callbacks:{
+    async signIn({user, account}){
+      console.log({user, account})
+      return user;
+
+    }
+  }
 });
 
 export { handler as GET, handler as POST };

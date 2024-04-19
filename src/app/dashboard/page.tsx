@@ -6,6 +6,7 @@ import {
   CheckIcon,
   ClipboardDocumentListIcon,
 } from "@heroicons/react/24/outline";
+import { useSession } from "next-auth/react";
 
 function DashboardPage() {
   
@@ -72,7 +73,6 @@ function DashboardPage() {
       if (textResponse) {
         await navigator.clipboard.writeText(textResponse);
         setIsCopyText(true);
-        console.log("Text copied to clipboard");
         setTimeout(() => setIsCopyText(false), 2000);
       }
     } catch (err) {
