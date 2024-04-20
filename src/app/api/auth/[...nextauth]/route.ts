@@ -48,14 +48,15 @@ const handler = NextAuth({
           credentials!.password,
           userFound.password
         );
-        
+
         if (!passwordMatch) throw new Error("Invalid credentials");
 
         let userReturn = {
           id: userFound._id,
           name: userFound.name,
           email: userFound.email,
-          image:'https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcT6T0fBNTGkAtgVFDeBhTpUu8ZzCCQE8tnzn6qiRKjOajTIhoYz0sb__e-u7aGBxcl6L0tZUfnwe5Sf3I8'
+          image:
+            "https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcT6T0fBNTGkAtgVFDeBhTpUu8ZzCCQE8tnzn6qiRKjOajTIhoYz0sb__e-u7aGBxcl6L0tZUfnwe5Sf3I8",
         };
 
         if (userReturn) {
@@ -72,13 +73,22 @@ const handler = NextAuth({
   pages: {
     signIn: "/login",
   },
-  callbacks:{
-    async signIn({user, account}){
-      console.log({user, account})
-      return user;
+  callbacks: {
+    async signIn({ user, account }) {
+      console.log({ user, account });
 
-    }
-  }
+      // Check if the user is allowed to sign in
+      const isAllowedToSignIn = true; // Replace with your own logic
+
+      if (isAllowedToSignIn) {
+        // If the user is allowed to sign in, return true
+        return true;
+      } else {
+        // If the user is not allowed to sign in, return false
+        return false;
+      }
+    },
+  },
 });
 
 export { handler as GET, handler as POST };
