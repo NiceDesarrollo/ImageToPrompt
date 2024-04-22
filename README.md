@@ -31,9 +31,5 @@ cp .env.example .env
 
 Add details providers (GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GITHUB_ID, GITHUB_SECRET, NEXTAUTH_URL, MONGODB_URI), and your next auth url base for example: http://localhost:3000.
 
+xx
 
-
-
-
-# StartUpFreeTemplate
-# ImageToPrompt

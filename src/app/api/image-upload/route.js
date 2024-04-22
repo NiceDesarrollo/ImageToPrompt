@@ -1,13 +1,12 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { getServerSession } from "next-auth";
-import { NextResponse } from "next/server"; 
+import { NextResponse } from "next/server";
 
 export async function POST(request) {
-
-  const session = await getServerSession(request)
+  const session = await getServerSession(request);
 
   if (!session) {
-    return NextResponse.json({ message: 'Please log in' }, { status: 401 });
+    return NextResponse.json({ message: "Please log in" }, { status: 401 });
   }
 
   const data = await request.formData();
@@ -49,9 +48,9 @@ export async function POST(request) {
   const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
   const prompt =
-    "Could you provide me prompt to generate this image?, give me a full description of colors, background, perspective, style (if it's realist or not)";
-
-  const imageParts = [await blobToGenerativePart(ImageRequestFile, imageType)];
+    "Provide me a description of this image: Describe it in a beautifully way and make me feel the love";
+  
+    const imageParts = [await blobToGenerativePart(ImageRequestFile, imageType)];
 
   const result = await model.generateContent([prompt, ...imageParts]);
   const response = await result.response;

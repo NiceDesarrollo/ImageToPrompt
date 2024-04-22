@@ -126,13 +126,10 @@ function DashboardPage() {
               >
                 <div className="text-center">
                   <h2 className="mt-5 text-3xl font-bold text-gray-900">
-                    Free version
-                  </h2>
-                  <h2 className="mt-5 text-3xl font-bold text-gray-900">
                     Upload your image!
                   </h2>
                   <h3 className="mt-5 text-2xl font-bold text-gray-500">
-                    To get the prompt
+                    To get the romantic prompt
                   </h3>
                 </div>
                 {error && (
