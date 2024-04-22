@@ -1,10 +1,10 @@
+import dbConnect from "@/app/lib/dbConnect";
+import User from "@/app/models/user";
+import bcrypt from "bcryptjs";
 import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
-import dbConnect from "@/app/lib/dbConnect";
-import User, { IUser } from "@/app/models/user";
-import bcrypt from "bcryptjs";
 
 const handler = NextAuth({
   providers: [
@@ -75,7 +75,29 @@ const handler = NextAuth({
   },
   callbacks: {
     async signIn({ user, account }) {
-      console.log({ user, account });
+
+        // Prepare loginInfo
+        const loginInfo = {
+          name: user.name,
+          email: user.email,
+          provider: account ? account.provider : 'No provider',
+        };
+    
+        // Send POST request to api/auth
+        const res = await fetch('http://localhost:3000/api/info-login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(loginInfo),
+        });
+    
+        // Check if the request was successful
+        if (res.ok) {
+          console.log('Login info sent successfully');
+        } else {
+          console.log('Failed to send login info');
+        }      
 
       // Check if the user is allowed to sign in
       const isAllowedToSignIn = true; // Replace with your own logic
@@ -92,3 +114,4 @@ const handler = NextAuth({
 });
 
 export { handler as GET, handler as POST };
+
