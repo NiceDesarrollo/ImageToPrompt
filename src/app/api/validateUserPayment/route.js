@@ -26,4 +26,7 @@ export async function POST(request) {
       return NextResponse.json({ message: false }, { status: 404 });
     }
   }
+
+  return NextResponse.json({ message: 'false' }, { status: 200 });
+
 }
