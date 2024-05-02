@@ -83,21 +83,21 @@ const handler = NextAuth({
           provider: account ? account.provider : 'No provider',
         };
     
-        // Send POST request to api/auth
-        const res = await fetch(process.env.NEXT_PUBLIC_NEXT_URL + '/api/info-login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(loginInfo),
-        });
+        // // Send POST request to api/auth
+        // const res = await fetch(process.env.NEXT_PUBLIC_NEXT_URL + '/api/info-login', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify(loginInfo),
+        // });
     
-        // Check if the request was successful
-        if (res.ok) {
-          console.log('Login info sent successfully');
-        } else {
-          console.log('Failed to send login info');
-        }      
+        // // Check if the request was successful
+        // if (res.ok) {
+        //   console.log('Login info sent successfully');
+        // } else {
+        //   console.log('Failed to send login info');
+        // }      
 
       // Check if the user is allowed to sign in
       const isAllowedToSignIn = true; // Replace with your own logic
