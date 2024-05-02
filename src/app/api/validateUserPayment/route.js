@@ -13,9 +13,11 @@ export async function POST(request) {
     // Acceder al valor de userEmail
     const userEmail = parsedBody.userEmail;
 
+  return NextResponse.json({ message: true }, { status: 200 });
+
+
     await dbConnect();
 
-  return NextResponse.json({ message: true }, { status: 200 });
 
 
     const userFound = await UserPayment.findOne({ email: userEmail });
