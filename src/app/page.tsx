@@ -7,7 +7,7 @@ async function HomePage() {
   const session:any = await getServerSession();
 
   const handleUserHasPay = async (userEmail: any) => {
-    const res = await fetch("http://localhost:3000/api/validateUserPayment", {
+    const res = await fetch("/api/validateUserPayment", {
       method: "POST",
       body: JSON.stringify({
         userEmail: userEmail,

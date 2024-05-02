@@ -84,7 +84,7 @@ const handler = NextAuth({
         };
     
         // Send POST request to api/auth
-        const res = await fetch('http://localhost:3000/api/info-login', {
+        const res = await fetch('/api/info-login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

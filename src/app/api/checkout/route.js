@@ -17,7 +17,7 @@ export async function POST(request) {
   }
 
   const session = await stripe.checkout.sessions.create({
-    success_url: `http://localhost:3000/dashboard`,
+    success_url: `/dashboard`,
     line_items: [
       {
         price_data: {
