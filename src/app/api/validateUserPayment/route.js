@@ -1,7 +1,6 @@
 import dbConnect from "@/app/lib/dbConnect";
 import UserPayment from "@/app/models/UserPayments";
 import { NextResponse } from "next/server";
-import { redirect } from "next/navigation";
 
 export async function POST(request) {
   const body = await request.text();
