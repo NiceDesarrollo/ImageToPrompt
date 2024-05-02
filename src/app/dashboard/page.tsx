@@ -85,7 +85,7 @@ function DashboardPage() {
   };
 
   const handleUserHasPay = useCallback(async (userEmail: any) => {
-    const res = await fetch("/api/validateUserPayment", {
+    const res = await fetch("https://www.prompgenerator.online/api/validateUserPayment", {
       method: "POST",
       body: JSON.stringify({
         userEmail: userEmail,
