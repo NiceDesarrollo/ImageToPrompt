@@ -14,6 +14,8 @@ export async function POST(request) {
     await dbConnect();
     const userFound = await UserPayment.findOne({ email: userEmail });
 
+    console.log(userFound)
+
     if (!userFound) {
       // console.log(
       //   "user: " + userEmail + "not found in userPayment" + userFound
