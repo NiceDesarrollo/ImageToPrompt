@@ -76,12 +76,12 @@ const handler = NextAuth({
   callbacks: {
     async signIn({ user, account }) {
 
-        // Prepare loginInfo
-        const loginInfo = {
-          name: user.name,
-          email: user.email,
-          provider: account ? account.provider : 'No provider',
-        };
+        // // Prepare loginInfo
+        // const loginInfo = {
+        //   name: user.name,
+        //   email: user.email,
+        //   provider: account ? account.provider : 'No provider',
+        // };
     
         // // Send POST request to api/auth
         // const res = await fetch(process.env.NEXT_PUBLIC_NEXT_URL + '/api/info-login', {
