@@ -3,40 +3,36 @@ import NavBar from "./ui/NavBar/NavBar";
 import { getServerSession } from "next-auth";
 
 async function HomePage() {
-
-  const session:any = await getServerSession();
+  const session: any = await getServerSession();
 
   const handleUserHasPay = async (userEmail: any) => {
     if (userEmail) {
-      const res = await fetch("https://image-to-prompt-8wj8.vercel.app/api/validateUserPayment", {
-        method: "POST",
-        body: JSON.stringify({
-          userEmail: userEmail,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-  
+      const res = await fetch(
+        process.env.NEXT_PUBLIC_NEXT_URL + "/api/validateUserPayment",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            userEmail: userEmail,
+          }),
+        }
+      );
+
       const data = await res.json();
-  
+
       if (data.message === true) {
         return true;
       } else if (data.message === false) {
         return false;
       }
     }
-
   };
 
   const getHref = async () => {
-    if (!!session && await handleUserHasPay(session?.user?.email)) {
+    if (!!session && (await handleUserHasPay(session?.user?.email))) {
       return "dashboard";
-    } 
-    else if (!await handleUserHasPay(session?.user?.email)) {
+    } else if (!(await handleUserHasPay(session?.user?.email))) {
       return "dashboard/payment";
-    }
-    else {
+    } else {
       return "login";
     }
   };

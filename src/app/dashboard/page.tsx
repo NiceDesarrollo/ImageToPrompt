@@ -1,5 +1,11 @@
 "use client";
-import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import NavBar from "../ui/NavBar/NavBar";
 import Image from "next/image";
 import {
@@ -84,28 +90,30 @@ function DashboardPage() {
     }
   };
 
-  const handleUserHasPay = useCallback(async (userEmail: any) => {
-    if (userEmail) {
-      const res = await fetch("https://image-to-prompt-8wj8.vercel.app/api/validateUserPayment", {
-        method: "POST",
-        body: JSON.stringify({
-          userEmail: userEmail,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    
-      const data = await res.json();
-    
-      if (data.message === true) {
-        setuserPaid(true);
-      } else if (data.message === false) {
-        router.push("/dashboard/payment");
-      }
-    }
+  const handleUserHasPay = useCallback(
+    async (userEmail: any) => {
+      if (userEmail) {
 
-  }, [router]); // No dependencies
+        const res = await fetch(
+          process.env.NEXT_PUBLIC_NEXT_URL + "/api/validateUserPayment",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              userEmail: userEmail,
+            }),
+          }
+        );
+        const data = await res?.json();
+
+        if (data.message === true) {
+          setuserPaid(true);
+        } else if (data.message === false) {
+          router.push("/dashboard/payment");
+        }
+      }
+    },
+    [router]
+  ); // No dependencies
 
   useEffect(() => {
     if (userSession) {
