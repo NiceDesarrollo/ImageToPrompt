@@ -3,7 +3,6 @@ import UserPayment from "@/app/models/UserPayments";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
-
   try {
     const body = await request.text();
 
@@ -15,11 +14,7 @@ export async function POST(request) {
 
     await dbConnect();
 
-
-
     const userFound = await UserPayment.findOne({ email: userEmail });
-
-
 
     if (!userFound) {
       console.log("user not found in userPayment");

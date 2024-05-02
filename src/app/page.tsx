@@ -16,6 +16,8 @@ async function HomePage() {
       });
   
       const data = await res.json();
+
+      console.log(data);
       
   
       if (data.message === true) {
