@@ -27,6 +27,4 @@ export async function POST(request) {
     }
   }
 
-  return NextResponse.json({ message: 'false' }, { status: 200 });
-
 }
