@@ -18,12 +18,12 @@ export async function POST(request) {
 
     if (!userFound) {
       console.log("user not found in userPayment");
-      return NextResponse.json({ message: false }, { status: 200 });
+      return NextResponse.json({ message: "user not found in userPayment" }, { status: 200 });
     } else {
       if (userFound.canGetThePrompt) {
         return NextResponse.json({ message: true }, { status: 200 });
       } else {
-        return NextResponse.json({ message: false }, { status: 404 });
+        return NextResponse.json({ message: "user without canGetThePrompt" }, { status: 404 });
       }
     }
   } catch (error) {

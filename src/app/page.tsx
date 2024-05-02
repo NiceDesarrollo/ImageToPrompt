@@ -39,7 +39,6 @@ async function HomePage() {
     }
   };
 
-  console.log(session?.user?.email)
 
   return (
     <>
