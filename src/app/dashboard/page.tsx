@@ -85,23 +85,26 @@ function DashboardPage() {
   };
 
   const handleUserHasPay = useCallback(async (userEmail: any) => {
-    const res = await fetch("https://image-to-prompt-8wj8.vercel.app/api/validateUserPayment", {
-      method: "POST",
-      body: JSON.stringify({
-        userEmail: userEmail,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  
-    const data = await res.json();
-  
-    if (data.message === true) {
-      setuserPaid(true);
-    } else if (data.message === false) {
-      router.push("/dashboard/payment");
+    if (userEmail) {
+      const res = await fetch("https://image-to-prompt-8wj8.vercel.app/api/validateUserPayment", {
+        method: "POST",
+        body: JSON.stringify({
+          userEmail: userEmail,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    
+      const data = await res.json();
+    
+      if (data.message === true) {
+        setuserPaid(true);
+      } else if (data.message === false) {
+        router.push("/dashboard/payment");
+      }
     }
+
   }, [router]); // No dependencies
 
   useEffect(() => {

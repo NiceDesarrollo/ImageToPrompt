@@ -7,23 +7,26 @@ async function HomePage() {
   const session:any = await getServerSession();
 
   const handleUserHasPay = async (userEmail: any) => {
-    const res = await fetch("https://image-to-prompt-8wj8.vercel.app/api/validateUserPayment", {
-      method: "POST",
-      body: JSON.stringify({
-        userEmail: userEmail,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    const data = await res.json();
-
-    if (data.message === true) {
-      return true;
-    } else if (data.message === false) {
-      return false;
+    if (userEmail) {
+      const res = await fetch("https://image-to-prompt-8wj8.vercel.app/api/validateUserPayment", {
+        method: "POST",
+        body: JSON.stringify({
+          userEmail: userEmail,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      const data = await res.json();
+  
+      if (data.message === true) {
+        return true;
+      } else if (data.message === false) {
+        return false;
+      }
     }
+
   };
 
   const getHref = async () => {
