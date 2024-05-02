@@ -27,16 +27,16 @@ async function HomePage() {
     }
   };
 
-  const getHref = async () => {
-    if (!!session) {
-      return "dashboard";
-    } 
-    // else if (!(await handleUserHasPay(session?.user?.email))) {
-    //   return "dashboard/payment";
-    // } else {
-    //   return "login";
-    // }
-  };
+  // const getHref = async () => {
+  //   if (!!session && (await handleUserHasPay(session?.user?.email))) {
+  //     return "dashboard";
+  //   } 
+  //   else if (!(await handleUserHasPay(session?.user?.email))) {
+  //     return "dashboard/payment";
+  //   } else {
+  //     return "login";
+  //   }
+  // };
 
   return (
     <>
@@ -87,7 +87,7 @@ async function HomePage() {
             </h1>
             <div className="mt-20 flex items-center justify-center gap-x-6">
               <Link
-                href={await getHref()}
+                href={'dashboard'}
                 className="isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-lg font-semibold text-white shadow-sm transition-all duration-150 hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
               >
                 Start
