@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import dbConnect from "@/app/lib/dbConnect";
 import User, { IUser } from "@/app/models/user";
+import UserPayment from "@/app/models/UserPayments";
 
 export async function POST(request: Request) {
   
@@ -19,6 +20,13 @@ export async function POST(request: Request) {
       name,
       email,
       password: hashedPassword,
+      canGetThePrompt: false,
+    });
+
+
+    await UserPayment.create({
+      userName: name,
+      email: email,
       canGetThePrompt: false,
     });
     
