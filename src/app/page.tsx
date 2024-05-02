@@ -7,7 +7,7 @@ async function HomePage() {
   const session:any = await getServerSession();
 
   const handleUserHasPay = async (userEmail: any) => {
-    const res = await fetch("https://www.prompgenerator.online/api/validateUserPayment", {
+    const res = await fetch("https://image-to-prompt-8wj8.vercel.app/api/validateUserPayment", {
       method: "POST",
       body: JSON.stringify({
         userEmail: userEmail,
