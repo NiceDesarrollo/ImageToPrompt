@@ -28,13 +28,14 @@ async function HomePage() {
   };
 
   const getHref = async () => {
-    if (!!session && (await handleUserHasPay(session?.user?.email))) {
+    if (!!session) {
       return "dashboard";
-    } else if (!(await handleUserHasPay(session?.user?.email))) {
-      return "dashboard/payment";
-    } else {
-      return "login";
-    }
+    } 
+    // else if (!(await handleUserHasPay(session?.user?.email))) {
+    //   return "dashboard/payment";
+    // } else {
+    //   return "login";
+    // }
   };
 
   return (
