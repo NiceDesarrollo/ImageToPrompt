@@ -12,12 +12,14 @@ export async function POST(request: Request) {
     const { name, email, password } = data;
     const hashedPassword = await bcrypt.hash(password, 10);
 
+
     await dbConnect();
 
     const user: IUser = await User.create({
       name,
       email,
       password: hashedPassword,
+      canGetThePrompt: false,
     });
     
   } catch (error: any) {

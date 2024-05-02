@@ -93,7 +93,6 @@ function DashboardPage() {
   const handleUserHasPay = useCallback(
     async (userEmail: any) => {
       if (userEmail) {
-
         const res = await fetch(
           process.env.NEXT_PUBLIC_NEXT_URL + "/api/validateUserPayment",
           {

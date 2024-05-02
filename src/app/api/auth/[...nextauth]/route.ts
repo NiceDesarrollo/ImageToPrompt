@@ -34,9 +34,12 @@ const handler = NextAuth({
         username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
         email: { label: "email", type: "email" },
+        canGetThePrompt: { label: "canGetThePrompt", type: "boolean" },
       },
       async authorize(credentials, req) {
+
         await dbConnect();
+
 
         const userFound = await User.findOne({ email: credentials?.email });
 

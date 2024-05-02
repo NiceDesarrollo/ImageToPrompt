@@ -16,9 +16,9 @@ export async function POST(request) {
     const userFound = await UserPayment.findOne({ email: userEmail });
 
     if (!userFound) {
-      console.log(
-        "user: " + userEmail + "not found in userPayment" + userFound
-      );
+      // console.log(
+      //   "user: " + userEmail + "not found in userPayment" + userFound
+      // );
       return NextResponse.json(
         {
           message:
