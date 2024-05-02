@@ -12,7 +12,6 @@ export async function POST(request) {
   const userEmail = parsedBody.userEmail;
   try {
     await dbConnect();
-
     const userFound = await UserPayment.findOne({ email: userEmail });
 
     if (!userFound) {
@@ -22,7 +21,7 @@ export async function POST(request) {
       return NextResponse.json(
         {
           message:
-            "user: " + userEmail + "not found in userPayment" + userFound,
+            "user: " + userEmail + " not found in userPayment " + userFound,
         },
         { status: 200 }
       );
