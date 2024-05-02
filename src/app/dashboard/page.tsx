@@ -105,6 +105,8 @@ function DashboardPage() {
         );
         const data = await res?.json();
 
+        console.log(data)
+
         if (data.message === true) {
           setuserPaid(true);
         } else if (data.message === false) {
