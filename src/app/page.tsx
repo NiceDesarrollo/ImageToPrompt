@@ -16,8 +16,6 @@ async function HomePage() {
       });
   
       const data = await res.json();
-
-      console.log(data);
       
   
       if (data.message === true) {
@@ -40,6 +38,8 @@ async function HomePage() {
       return "login";
     }
   };
+
+  console.log(session?.user?.email)
 
   return (
     <>
