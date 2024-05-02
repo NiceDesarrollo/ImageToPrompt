@@ -15,9 +15,11 @@ export async function POST(request) {
 
     await dbConnect();
 
+  return NextResponse.json({ message: true }, { status: 200 });
+
+
     const userFound = await UserPayment.findOne({ email: userEmail });
 
-  return NextResponse.json({ message: true }, { status: 200 });
 
 
     if (!userFound) {
