@@ -3,6 +3,8 @@ import UserPayment from "@/app/models/UserPayments";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
+  return NextResponse.json({ message: true }, { status: 200 });
+
   try {
     const body = await request.text();
 
