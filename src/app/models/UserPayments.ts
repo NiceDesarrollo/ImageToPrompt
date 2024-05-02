@@ -6,29 +6,24 @@ interface ITimestamp {
 }
 
 
-export interface IUser extends Document {
-  name: string;
+export interface IUserPayment extends Document {
+  userName: string;
   email: string;
-  password: string;
   canGetThePrompt: boolean;
   timestamps: ITimestamp;
   // Add more fields as needed
 }
 
-const UserSchema = new mongoose.Schema<IUser>(
+const UserPaymentSchema = new mongoose.Schema<IUserPayment>(
   {
-    name: {
-      type: String,
-      required: [true, "Please provide a name"],
-    },
+    userName: {
+        type: String,
+        required: [true, "Please provide an userName"],
+      },
     email: {
       type: String,
       required: [true, "Please provide an email"],
       unique: true,
-    },
-    password: {
-      type: String,
-      required: [true, "Please provide a password"],
     },
     canGetThePrompt: {
       type: Boolean,
@@ -39,7 +34,7 @@ const UserSchema = new mongoose.Schema<IUser>(
   { timestamps: true }
 );
 
-const User: Model<IUser> =
-  mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
+const UserPayment: Model<IUserPayment> =
+  mongoose.models.UserPayment || mongoose.model<IUserPayment>("UserPayment", UserPaymentSchema);
 
-export default User;
+export default UserPayment;

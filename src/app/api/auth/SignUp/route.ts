@@ -4,6 +4,7 @@ import dbConnect from "@/app/lib/dbConnect";
 import User, { IUser } from "@/app/models/user";
 
 export async function POST(request: Request) {
+  
   const data = await request.json();
 
   // Validate the data against the schema

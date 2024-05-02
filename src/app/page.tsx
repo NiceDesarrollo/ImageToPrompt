@@ -4,11 +4,47 @@ import { getServerSession } from "next-auth";
 
 async function HomePage() {
 
-  const session = await getServerSession();
+  const session:any = await getServerSession();
+
+  const handleUserHasPay = async (userEmail: any) => {
+    const res = await fetch("http://localhost:3000/api/validateUserPayment", {
+      method: "POST",
+      body: JSON.stringify({
+        userEmail: userEmail,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await res.json();
+
+    if (data.message === true) {
+      return true;
+    } else if (data.message === false) {
+      return false;
+    }
+  };
+
+  const getHref = async () => {
+    if (!!session && await handleUserHasPay(session?.user?.email)) {
+      return "dashboard";
+    } 
+    else if (!await handleUserHasPay(session?.user?.email)) {
+      return "dashboard/payment";
+    }
+    else {
+      return "login";
+    }
+  };
 
   return (
     <>
-      <NavBar showLogin={!session} showDashboard={ !!session} showLogOut={!!session}  />
+      <NavBar
+        showLogin={!session}
+        showDashboard={!!session}
+        showLogOut={!!session}
+      />
       <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 via-transparent to-transparent pb-12 pt-20 sm:pb-16 sm:pt-32 lg:pb-24 xl:pb-32 xl:pt-40">
         <div className="relative z-10">
           <div className="absolute inset-x-0 top-1/2 -z-10 flex -translate-y-1/2 justify-center overflow-hidden [mask-image:radial-gradient(50%_45%_at_50%_55%,white,transparent)]">
@@ -51,7 +87,7 @@ async function HomePage() {
             </h1>
             <div className="mt-20 flex items-center justify-center gap-x-6">
               <Link
-                href={!!session ? "dashboard" : "/login"}
+                href={await getHref()}
                 className="isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-lg font-semibold text-white shadow-sm transition-all duration-150 hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
               >
                 Start
