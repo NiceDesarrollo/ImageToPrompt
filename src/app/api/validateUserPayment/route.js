@@ -12,7 +12,6 @@ export async function POST(request) {
 
     // Acceder al valor de userEmail
     const userEmail = parsedBody.userEmail;
-    
 
     await dbConnect();
 

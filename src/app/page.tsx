@@ -3,40 +3,41 @@ import NavBar from "./ui/NavBar/NavBar";
 import { getServerSession } from "next-auth";
 
 async function HomePage() {
-  const session: any = await getServerSession();
+
+  const session:any = await getServerSession();
 
   const handleUserHasPay = async (userEmail: any) => {
     if (userEmail) {
-      const res = await fetch(
-        process.env.NEXT_PUBLIC_NEXT_URL + "/api/validateUserPayment",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            userEmail: userEmail,
-          }),
-        }
-      );
-
+      const res = await fetch(process.env.NEXT_PUBLIC_NEXT_URL + "/api/validateUserPayment", {
+        method: "POST",
+        body: JSON.stringify({
+          userEmail: userEmail,
+        }),
+      });
+  
       const data = await res.json();
-
+      
+  
       if (data.message === true) {
         return true;
       } else if (data.message === false) {
         return false;
       }
     }
+
   };
 
-  // const getHref = async () => {
-  //   if (!!session && (await handleUserHasPay(session?.user?.email))) {
-  //     return "dashboard";
-  //   } 
-  //   else if (!(await handleUserHasPay(session?.user?.email))) {
-  //     return "dashboard/payment";
-  //   } else {
-  //     return "login";
-  //   }
-  // };
+  const getHref = async () => {
+    if (!!session && await handleUserHasPay(session?.user?.email)) {
+      return "dashboard";
+    } 
+    else if (!await handleUserHasPay(session?.user?.email)) {
+      return "dashboard/payment";
+    }
+    else {
+      return "login";
+    }
+  };
 
   return (
     <>
@@ -87,7 +88,7 @@ async function HomePage() {
             </h1>
             <div className="mt-20 flex items-center justify-center gap-x-6">
               <Link
-                href={'dashboard'}
+                href={await getHref()}
                 className="isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-lg font-semibold text-white shadow-sm transition-all duration-150 hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
               >
                 Start
