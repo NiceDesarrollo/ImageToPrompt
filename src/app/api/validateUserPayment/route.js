@@ -10,18 +10,28 @@ export async function POST(request) {
 
   // Acceder al valor de userEmail
   const userEmail = parsedBody.userEmail;
+
+  let userFound;
+
   try {
     await dbConnect();
-    const userFound = await UserPayment.findOne({ email: userEmail });
 
-    console.log({userFound, userEmail})
+    try {
+      userFound = await UserPayment.findOne({ email: userEmail });
+    } catch (error) {
+      console.error("Failed to execute query", error);
+      // Handle the error appropriately
+      // You might want to send a response with an error status code
+      return NextResponse.json(
+        { message: "An error occurred" },
+        { status: 500 }
+      );
+    }
 
     if (!userFound) {
-
       return NextResponse.json(
         {
-          message:
-            "user: " + userEmail + " not found in userPayment " + userFound,
+          message: "user: " + userEmail + " not found in userPayment ",
         },
         { status: 200 }
       );
