@@ -15,7 +15,6 @@ export async function POST(request) {
 
   try {
     await dbConnect();
-
     try {
       userFound = await UserPayment.findOne({ email: userEmail });
     } catch (error) {
@@ -29,21 +28,13 @@ export async function POST(request) {
     }
 
     if (!userFound) {
-      return NextResponse.json(
-        {
-          message: "user: " + userEmail + " not found in userPayment ",
-        },
-        { status: 404 }
-      );
+      return NextResponse.json({ message: false }, { status: 200 });
     } else {
       if (userFound.canGetThePrompt) {
         // console.log("user: " + userEmail + " found in userPayment" + userFound);
         return NextResponse.json({ message: true }, { status: 200 });
       } else {
-        return NextResponse.json(
-          { message: "user without canGetThePrompt" },
-          { status: 404 }
-        );
+        return NextResponse.json({ message: false }, { status: 200 });
       }
     }
   } catch (error) {

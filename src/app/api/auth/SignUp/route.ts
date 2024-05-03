@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 
     await dbConnect();
 
-    const user: IUser = await User.create({
+    await User.create({
       name,
       email,
       password: hashedPassword,
