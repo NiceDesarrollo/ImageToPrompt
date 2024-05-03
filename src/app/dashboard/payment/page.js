@@ -60,15 +60,15 @@ function App() {
         </div>
       </div>
       <div className="px-44 relative z-20 mx-auto max-w-7xl ">
-        <section className="flex items-center justify-center mt-10 pb-10">
+        <section>
           <div
             className="p-4 sm:px-10 flex flex-col justify-center items-center text-base h-100vh mx-auto"
             id="pricing"
           >
-            <h3 className="text-5xl font-semibold text-center flex gap-2 justify-center mb-10">
+            <h3 className="text-5xl font-semibold text-center flex gap-2 mb-10 w-80">
               Pay once, use forever
             </h3>
-            <div className="isolate mx-auto grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+            <div className="">
               <div className="ring-2 ring-blue-600 rounded-3xl p-8 xl:p-10">
                 <div className="flex items-center justify-between gap-x-4">
                   <h3
@@ -146,24 +146,6 @@ function App() {
                       ></path>
                     </svg>
                     24/7 support
-                  </li>
-                  <li className="flex gap-x-3 text-base">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                      className="h-6 w-5 flex-none text-blue-600"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      ></path>
-                    </svg>
-                    Use your own OpenAI key
                   </li>
                 </ul>
               </div>
