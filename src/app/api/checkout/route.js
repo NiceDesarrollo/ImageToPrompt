@@ -7,6 +7,7 @@ export async function POST(request) {
   
   const body = await request.json();
 
+  console.log(body)
 
   // Define el precio correcto para tu producto
   const correctPrice = 1000; // Reemplaza esto con el precio correcto de tu producto
@@ -17,7 +18,7 @@ export async function POST(request) {
   }
 
   const session = await stripe.checkout.sessions.create({
-    success_url: `/dashboard`,
+    success_url: `${process.env.NEXTAUTH_URL}/dashboard`,
     line_items: [
       {
         price_data: {
