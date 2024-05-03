@@ -96,11 +96,11 @@ const handler = NextAuth({
         });
     
         // Check if the request was successful
-        if (res.ok) {
-          console.log('Login info sent successfully');
-        } else {
-          console.log('Failed to send login info');
-        }      
+        // if (res.ok) {
+        //   console.log('Login info sent successfully');
+        // } else {
+        //   console.log('Failed to send login info');
+        // }      
 
       // Check if the user is allowed to sign in
       const isAllowedToSignIn = true; // Replace with your own logic

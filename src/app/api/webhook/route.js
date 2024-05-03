@@ -13,7 +13,7 @@ export async function POST(request) {
   
   const body = await request.text();
   
-  console.log(body)
+  // console.log(body)
 
   const headersList = headers();
   const sig = headersList.get("stripe-signature");
@@ -41,11 +41,11 @@ export async function POST(request) {
         canGetThePrompt: true,
       });
 
-      console.log(
-        "Consultado producto con id",
-        checkoutSessionCompleted.metadata.userName,
-        checkoutSessionCompleted.metadata.userEmail
-      );
+      // console.log(
+      //   "Consultado producto con id",
+      //   checkoutSessionCompleted.metadata.userName,
+      //   checkoutSessionCompleted.metadata.userEmail
+      // );
 
       // enviar un correo
       console.log({ checkoutSessionCompleted });

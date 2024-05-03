@@ -37,7 +37,7 @@ export async function POST(request) {
       );
     } else {
       if (userFound.canGetThePrompt) {
-        console.log("user: " + userEmail + " found in userPayment" + userFound);
+        // console.log("user: " + userEmail + " found in userPayment" + userFound);
         return NextResponse.json({ message: true }, { status: 200 });
       } else {
         return NextResponse.json(

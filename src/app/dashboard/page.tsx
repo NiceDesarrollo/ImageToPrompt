@@ -91,7 +91,7 @@ function DashboardPage() {
   };
 
   const handleUserHasPay = useCallback(
-    
+
     async (userEmail: any) => {
       if (userEmail) {
         const res = await fetch(
@@ -105,7 +105,7 @@ function DashboardPage() {
         );
         const data = await res?.json();
 
-        console.log(data)
+        // console.log(data)
 
         if (data.message === true) {
           setuserPaid(true);
