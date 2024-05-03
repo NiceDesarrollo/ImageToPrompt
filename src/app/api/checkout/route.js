@@ -7,10 +7,10 @@ export async function POST(request) {
   
   const body = await request.json();
 
-  console.log(body)
+  // console.log(body)
 
   // Define el precio correcto para tu producto
-  const correctPrice = 1000; // Reemplaza esto con el precio correcto de tu producto
+  const correctPrice = 20000; // Reemplaza esto con el precio correcto de tu producto
 
   // Comprueba si el precio enviado por el cliente es correcto
   if (body.price !== correctPrice) {

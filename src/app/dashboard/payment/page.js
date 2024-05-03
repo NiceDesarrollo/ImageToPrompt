@@ -83,10 +83,10 @@ function App() {
                 </div>
                 <p className="mt-6 flex items-baseline gap-x-1">
                   <span className="line-through text-2xl font-sans text-gray-500/70">
-                    $1500
+                    $1100
                   </span>
                   <span className="text-5xl font-bold tracking-tight text-gray-900">
-                    $10
+                    $250
                   </span>
                 </p>
                 <a
@@ -98,7 +98,7 @@ function App() {
                       {
                         id: 1,
                         name: "Get life access",
-                        price: 1000,
+                        price: 20000,
                         image: "https://via.placeholder.com/150",
                       },
                       userSession?.user
