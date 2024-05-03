@@ -33,7 +33,7 @@ export async function POST(request) {
         {
           message: "user: " + userEmail + " not found in userPayment ",
         },
-        { status: 200 }
+        { status: 404 }
       );
     } else {
       if (userFound.canGetThePrompt) {

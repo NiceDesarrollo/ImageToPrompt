@@ -91,6 +91,7 @@ function DashboardPage() {
   };
 
   const handleUserHasPay = useCallback(
+    
     async (userEmail: any) => {
       if (userEmail) {
         const res = await fetch(
