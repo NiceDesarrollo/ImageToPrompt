@@ -13,6 +13,11 @@ export async function POST(request) {
   const data = await request.formData();
   const imageType = data.get("image").type || "";
   const ImageRequestFile = data.get("image");
+  const imageSize = data.get("image").size || "";
+
+  if (imageSize > 4000000) {
+    return NextResponse.json({ message: "The image cannot exceed 4MB." }, { status: 400 });
+  }
 
   let imageExtension = imageType.split("/");
   imageExtension = imageExtension[1];
@@ -56,6 +61,10 @@ export async function POST(request) {
   const result = await model.generateContent([prompt, ...imageParts]);
   const response = await result.response;
   const text = response.text();
+
+  if (response?.candidates[0]?.finishReason === 'OTHER') {
+    return NextResponse.json({ message: "An external error has occurred." }, { status: 400 });
+  }
 
   return NextResponse.json({ message: text }, { status: 200 });
 }
