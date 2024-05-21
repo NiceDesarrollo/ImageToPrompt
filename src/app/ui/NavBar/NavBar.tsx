@@ -1,11 +1,11 @@
 "use client";
 
 import { Dialog } from "@headlessui/react";
-import { MinusIcon, ArrowsPointingOutIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
-import Icon from "./Icon";
-import Link from "next/link";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import Icon from "./Icon";
 
 interface INavBar {
   showLogin?: boolean;
@@ -21,7 +21,7 @@ const NavBar: React.FC<INavBar> = ({ showLogin, showLogOut, showDashboard }) => 
 
   return (
     <>
-      <header className="absolute inset-x-0 top-0 z-50">
+      <header className="absolute inset-x-0 top-0 z-40">
         <nav
           className="flex items-center justify-between p-6 lg:px-8"
           aria-label="Nav bar"
@@ -36,7 +36,7 @@ const NavBar: React.FC<INavBar> = ({ showLogin, showLogOut, showDashboard }) => 
             >
               <span className="sr-only">Open main menu</span>
 
-              <ArrowsPointingOutIcon className="h-6 w-6" aria-hidden="true" />
+              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
 
@@ -87,7 +87,7 @@ const NavBar: React.FC<INavBar> = ({ showLogin, showLogOut, showDashboard }) => 
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span className="sr-only">Close menu</span>
-                <MinusIcon className="h-6 w-6" aria-hidden="true" />
+                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
               </button>
             </div>
             <div className="mt-6 flow-root">
